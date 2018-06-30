@@ -1979,7 +1979,7 @@ uint16_t database::get_curation_rewards_percent( const comment_object& c ) const
    if( has_hardfork( STEEMIT_HARDFORK_0_17__774 ) )
       return get_reward_fund( c ).percent_curation_rewards;
    else if( has_hardfork( STEEMIT_HARDFORK_0_8__116 ) )
-      return STEEMIT_1_PERCENT * 25;
+      return STEEMIT_1_PERCENT * 50;
    else
       return STEEMIT_1_PERCENT * 50;
 }

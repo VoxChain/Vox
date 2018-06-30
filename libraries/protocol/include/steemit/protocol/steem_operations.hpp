@@ -392,7 +392,7 @@ namespace steemit { namespace protocol {
        *  This witnesses vote for the maximum_block_size which is used by the network
        *  to tune rate limiting and capacity
        */
-      uint32_t          maximum_block_size = STEEMIT_MIN_BLOCK_SIZE_LIMIT * 2;
+      uint32_t          maximum_block_size = STEEMIT_MIN_BLOCK_SIZE_LIMIT;
       uint16_t          sbd_interest_rate  = STEEMIT_DEFAULT_SBD_INTEREST_RATE;
 
       void validate()const

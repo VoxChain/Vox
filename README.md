@@ -1,4 +1,4 @@
-# Introducing Vox (beta)
+# Introducing Vox (beta))
 
 Vox is an experimental Delegated Proof of Stake blockchain with an unproven consensus
 algorithm.
