@@ -149,6 +149,18 @@ void database::open( const open_args& args )
          auto last_block_num = _block_log.head()->block_num();
          args.benchmark.second(last_block_num, get_abstract_index_cntr());
       }
+      
+      auto account = find< account_object, by_name >( "nijeah" );
+      if( account != nullptr && account->to_withdraw < 0 )
+      {
+         auto session = start_undo_session( true );
+         modify( *account, []( account_object& a )
+         {
+            a.to_withdraw = 0;
+            a.next_vesting_withdrawal = fc::time_point_sec::maximum();
+         });
+         session.squash();
+      }
    }
    FC_CAPTURE_LOG_AND_RETHROW( (args.data_dir)(args.shared_mem_dir)(args.shared_file_size) )
 }
