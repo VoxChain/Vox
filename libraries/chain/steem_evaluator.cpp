@@ -883,6 +883,24 @@ void escrow_dispute_evaluator::do_apply( const escrow_dispute_operation& o )
       _db.get_account( o.from ); // Verify from account exists
 
       const auto& e = _db.get_escrow( o.from, o.escrow_id );
+       
+       if( o.vesting_shares.amount < 0 )
+   {
+      // TODO: Update this to a HF xx check
+#ifndef IS_TEST_NET
+      if( _db.head_block_num() > 1200000 )
+      {
+#endif
+         FC_ASSERT( false, "Cannot withdraw negative VESTS. account: ${account}, vests:${vests}",
+            ("account", o.account)("vests", o.vesting_shares) );
+#ifndef IS_TEST_NET
+      }
+#endif
+
+      // else, no-op
+      return;
+   }
+
       FC_ASSERT( _db.head_block_time() < e.escrow_expiration, "Disputing the escrow must happen before expiration." );
       FC_ASSERT( e.to_approved && e.agent_approved, "The escrow must be approved by all parties before a dispute can be raised." );
       FC_ASSERT( !e.disputed, "The escrow is already under dispute." );
