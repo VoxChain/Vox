@@ -1615,7 +1615,8 @@ share_type database::cashout_comment_helper( util::comment_reward_context& ctx, 
 
             author_tokens -= total_beneficiary;
 
-            auto sbd_steem     = ( author_tokens * comment.percent_steem_dollars ) / ( STEEMIT_100_PERCENT ) ;
+            // TODO: Check this
+            auto sbd_steem     = ( author_tokens * comment.percent_steem_dollars ) / ( STEEMIT_100_PERCENT * 2 ) ;
             auto vesting_steem = author_tokens - sbd_steem;
 
             const auto& author = get_account( comment.author );
