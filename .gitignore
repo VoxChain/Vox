@@ -60,3 +60,8 @@ witness_node_data_dir
 *.pyc
 *.pyo
 *.egg-info/
+base.info
+interesting.info
+total.info
+test.info
+.vscode/

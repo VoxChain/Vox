@@ -413,7 +413,6 @@ namespace steemit { namespace protocol {
       validate_account_name( from );
       validate_account_name( to );
       validate_account_name( agent );
-
       FC_ASSERT( fee.amount >= 0, "fee cannot be negative" );
       FC_ASSERT( sbd_amount.amount > 0, "escrow must transfer a non-zero amount" );
       FC_ASSERT( from != agent && to != agent, "agent must be a third party" );

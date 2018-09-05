@@ -113,7 +113,6 @@ void database::open( const fc::path& data_dir, const fc::path& shared_mem_dir, u
                init_genesis( initial_supply );
             });
 
-       
          _block_log.open( data_dir / "block_log" );
 
          auto log_head = _block_log.head();
@@ -1616,7 +1615,14 @@ share_type database::cashout_comment_helper( util::comment_reward_context& ctx, 
 
             author_tokens -= total_beneficiary;
 
-            auto sbd_steem     = ( author_tokens * comment.percent_steem_dollars ) / ( STEEMIT_100_PERCENT ) ;
+            auto sbd_steem = ( author_tokens * comment.percent_steem_dollars );
+
+            if( head_block_num() > VOX_BLOCK_FIX_19_11 ) {
+               sbd_steem  = sbd_steem / ( 2 * STEEMIT_100_PERCENT ) ;
+            } else {
+               sbd_steem  = sbd_steem / ( STEEMIT_100_PERCENT ) ;
+            }
+            
             auto vesting_steem = author_tokens - sbd_steem;
 
             const auto& author = get_account( comment.author );
@@ -1739,7 +1745,7 @@ void database::process_comment_cashout()
       rf_ctx.reward_balance = itr->reward_balance;
 
       // The index is by ID, so the ID should be the current size of the vector (0, 1, 2, etc...)
-      assert( funds.size() == itr->id._id );
+      assert( funds.size() == size_t( itr->id._id ) );
 
       funds.push_back( rf_ctx );
    }

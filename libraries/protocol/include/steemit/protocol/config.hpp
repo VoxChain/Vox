@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#define STEEMIT_BLOCKCHAIN_VERSION              ( version(0, 19, 10) )
+#define STEEMIT_BLOCKCHAIN_VERSION              ( version(0, 19, 11) )
 #define STEEMIT_BLOCKCHAIN_HARDFORK_VERSION     ( hardfork_version( STEEMIT_BLOCKCHAIN_VERSION ) )
 
 #ifdef IS_TEST_NET
@@ -53,7 +53,7 @@
 
 #define STEEMIT_GENESIS_TIME                    (fc::time_point_sec(1458835200))
 #define STEEMIT_MINING_TIME                     (fc::time_point_sec(1458838800))
-#define STEEMIT_BLOCK_STOP_PRINT_SBD_1ST 			 2881000
+// #define STEEMIT_BLOCK_STOP_PRINT_SBD_1ST 			 2881000
 
 #define STEEMIT_CASHOUT_WINDOW_SECONDS_PRE_HF12 (60*60*24)    /// 1 day
 #define STEEMIT_CASHOUT_WINDOW_SECONDS_PRE_HF17 (60*60*12)    /// 12 hours
@@ -72,7 +72,15 @@
 #define STEEMIT_OWNER_UPDATE_LIMIT                          fc::minutes(60)
 #define STEEMIT_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM 1
 
-#endif
+#endif // END LIVE NETROWK
+
+// GENERATE SETTINGS
+
+// PRINTABLE BLOCK
+#define STEEMIT_BLOCK_STOP_PRINT_SBD_1ST                         2881000
+
+// VOX SPECIFIED
+#define VOX_BLOCK_FIX_19_11 2880800
 
 #define STEEMIT_BLOCK_INTERVAL                  3
 #define STEEMIT_BLOCKS_PER_YEAR                 (365*24*60*60/STEEMIT_BLOCK_INTERVAL)
@@ -112,6 +120,7 @@
 #define STEEMIT_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) /// 30 minutes
 #define STEEMIT_MIN_VOTE_INTERVAL_SEC           3
 #define STEEMIT_VOTE_DUST_THRESHOLD             (50000000)
+
 #define STEEMIT_MIN_ROOT_COMMENT_INTERVAL       (fc::seconds(60*5)) // 5 minutes
 #define STEEMIT_MIN_REPLY_INTERVAL              (fc::seconds(20)) // 20 seconds
 #define STEEMIT_POST_AVERAGE_WINDOW             (60*60*24u) // 1 day

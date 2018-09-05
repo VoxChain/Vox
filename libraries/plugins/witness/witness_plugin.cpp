@@ -32,6 +32,8 @@
 #include <steemit/chain/index.hpp>
 #include <steemit/chain/steem_objects.hpp>
 
+#include <steemit/app/impacted.hpp>
+
 #include <fc/time.hpp>
 
 #include <graphene/utilities/key_conversion.hpp>
@@ -58,7 +60,7 @@ using chain::account_object;
 
 void new_chain_banner( const steemit::chain::database& db )
 {
-    std::cerr << "\n"
+   std::cerr << "\n"
       "********************************\n"
       "*                              *\n"
       "*                              *\n"
