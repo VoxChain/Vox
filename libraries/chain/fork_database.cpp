@@ -1,8 +1,8 @@
-#include <steemit/chain/fork_database.hpp>
+#include <steem/chain/fork_database.hpp>
 
-#include <steemit/chain/database_exceptions.hpp>
+#include <steem/chain/database_exceptions.hpp>
 
-namespace steemit { namespace chain {
+namespace steem { namespace chain {
 
 fork_database::fork_database()
 {
@@ -61,7 +61,7 @@ void  fork_database::_push_block(const item_ptr& item)
    {
       auto& index = _index.get<block_id>();
       auto itr = index.find(item->previous_id());
-      STEEMIT_ASSERT(itr != index.end(), unlinkable_block_exception, "block does not link to known chain");
+      STEEM_ASSERT(itr != index.end(), unlinkable_block_exception, "block does not link to known chain");
       FC_ASSERT(!(*itr)->invalid);
       item->prev = *itr;
    }
@@ -151,8 +151,9 @@ vector<item_ptr> fork_database::fetch_block_by_number(uint32_t num)const
    try
    {
    vector<item_ptr> result;
-   auto itr = _index.get<block_num>().find(num);
-   while( itr != _index.get<block_num>().end() )
+   auto const& block_num_idx = _index.get<block_num>();
+   auto itr = block_num_idx.lower_bound(num);
+   while( itr != block_num_idx.end() && itr->get()->num == num )
    {
       if( (*itr)->num == num )
          result.push_back( *itr );
@@ -240,4 +241,4 @@ void fork_database::remove(block_id_type id)
    _index.get<block_id>().erase(id);
 }
 
-} } // steemit::chain
+} } // steem::chain

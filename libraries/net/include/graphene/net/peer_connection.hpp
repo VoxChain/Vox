@@ -207,7 +207,7 @@ namespace graphene { namespace net
       fc::optional<fc::time_point_sec> fc_git_revision_unix_timestamp;
       fc::optional<std::string> platform;
       fc::optional<uint32_t> bitness;
-      fc::optional<steemit::protocol::chain_id_type> chain_id;
+      fc::optional<steem::protocol::chain_id_type> chain_id;
 
       // for inbound connections, these fields record what the peer sent us in
       // its hello message.  For outbound, they record what we sent the peer
@@ -232,6 +232,10 @@ namespace graphene { namespace net
       item_hash_t last_block_delegate_has_seen; /// the hash of the last block  this peer has told us about that the peer knows
       fc::time_point_sec last_block_time_delegate_has_seen;
       bool inhibit_fetching_sync_blocks = false;
+      /// @}
+
+      /// latency timing data
+      std::unordered_map< item_hash_t, fc::time_point > pending_item_request_times;
       /// @}
 
       /// non-synchronization state data
@@ -274,7 +278,7 @@ namespace graphene { namespace net
       bool _currently_handling_message = false; // true while we're in the middle of handling a message from the remote system
     private:
       peer_connection(peer_connection_delegate* delegate);
-      void destroy();
+      void destroy(const char* caller);
     public:
       static peer_connection_ptr make_shared(peer_connection_delegate* delegate); // use this instead of the constructor
       virtual ~peer_connection();
@@ -290,7 +294,7 @@ namespace graphene { namespace net
       void send_message(const message& message_to_send, size_t message_send_time_field_offset = (size_t)-1);
       void send_item(const item_id& item_to_send);
       void close_connection();
-      void destroy_connection();
+      void destroy_connection(const char* caller);
 
       uint64_t get_total_bytes_sent() const;
       uint64_t get_total_bytes_received() const;

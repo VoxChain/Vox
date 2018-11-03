@@ -9,7 +9,7 @@ if [[ ! $? -eq 0 ]]; then
   if [[ -e /tmp/core.$SAVED_PID ]]; then
     gdb --batch --quiet -ex "thread apply all bt full" -ex "quit" /usr/local/steemd-full/bin/steemd /tmp/core.$SAVED_PID >> /tmp/stacktrace
     STACKTRACE=`cat /tmp/stacktrace`
-    echo NOTIFYALERT! steemdsync stacktrace from coredump:
+    echo NOTIFYALERT! steemd stacktrace from coredump:
     for ((i=0;i<${#STACKTRACE};i+=120)); do
       echo "${STACKTRACE:i:120}"
     done

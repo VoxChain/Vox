@@ -1,9 +1,9 @@
-#include <steemit/protocol/block.hpp>
+#include <steem/protocol/block.hpp>
 #include <fc/io/raw.hpp>
 #include <fc/bitutil.hpp>
 #include <algorithm>
 
-namespace steemit { namespace protocol {
+namespace steem { namespace protocol {
    digest_type block_header::digest()const
    {
       return digest_type::hash(*this);
@@ -24,19 +24,19 @@ namespace steemit { namespace protocol {
       return result;
    }
 
-   fc::ecc::public_key signed_block_header::signee()const
+   fc::ecc::public_key signed_block_header::signee( fc::ecc::canonical_signature_type canon_type )const
    {
-      return fc::ecc::public_key( witness_signature, digest(), true/*enforce canonical*/ );
+      return fc::ecc::public_key( witness_signature, digest(), canon_type );
    }
 
-   void signed_block_header::sign( const fc::ecc::private_key& signer )
+   void signed_block_header::sign( const fc::ecc::private_key& signer, fc::ecc::canonical_signature_type canon_type )
    {
-      witness_signature = signer.sign_compact( digest() );
+      witness_signature = signer.sign_compact( digest(), canon_type );
    }
 
-   bool signed_block_header::validate_signee( const fc::ecc::public_key& expected_signee )const
+   bool signed_block_header::validate_signee( const fc::ecc::public_key& expected_signee, fc::ecc::canonical_signature_type canon_type )const
    {
-      return signee() == expected_signee;
+      return signee( canon_type ) == expected_signee;
    }
 
    checksum_type signed_block::calculate_merkle_root()const
@@ -66,4 +66,4 @@ namespace steemit { namespace protocol {
       return checksum_type::hash( ids[0] );
    }
 
-} } // steemit::protocol
+} } // steem::protocol
