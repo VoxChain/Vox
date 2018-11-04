@@ -13,13 +13,13 @@
 
 #include <steem/jsonball/jsonball.hpp>
 
-#define STEEM_RC_REGEN_TIME   (60*60*24*5)
+#define STEEM_RC_REGEN_TIME   (60*60*24)
 // 2020.748973 VESTS == 1.000 STEEM when HF20 occurred on mainnet
 // TODO: What should this value be for testnet?
 #define STEEM_HISTORICAL_ACCOUNT_CREATION_ADJUSTMENT      2020748973
 
 #ifndef IS_TEST_NET
-#define STEEM_HF20_BLOCK_NUM                              26256743
+#define STEEM_HF20_BLOCK_NUM                              1
 #endif
 
 // 1.66% is ~2 hours of regen.

@@ -45,20 +45,20 @@
 
 #define STEEM_BLOCKCHAIN_VERSION              ( version(0, 20, 6) )
 
-#define STEEM_INIT_PUBLIC_KEY_STR             "STM8GC13uCZbP44HzMLV6zPZGwVQ8Nt4Kji8PapsPiNq1BK153XTX"
-#define STEEM_CHAIN_ID fc::sha256()
-#define STEEM_ADDRESS_PREFIX                  "STM"
+#define STEEM_INIT_PUBLIC_KEY_STR             "VOX8hTtrju54bpqTrhDWcTmEiLnSZ2Eb2E9xQW3keTtHajnm3May6"
+#define STEEM_CHAIN_ID (fc::sha256::hash("VOX"))
+#define STEEM_ADDRESS_PREFIX                  "VOX"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1458835200))
 #define STEEM_MINING_TIME                     (fc::time_point_sec(1458838800))
 #define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF12 (60*60*24)    /// 1 day
 #define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF17 (60*60*12)    /// 12 hours
-#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7)  /// 7 days
-#define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*30) /// 30 days
-#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24*14) /// 2 weeks
+#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*2)  /// 2 days
+#define STEEM_SECOND_CASHOUT_WINDOW           (0) /// 0 days
+#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60) /// 1 h
 #define STEEM_UPVOTE_LOCKOUT_HF7              (fc::minutes(1))
 #define STEEM_UPVOTE_LOCKOUT_SECONDS          (60*60*12)    /// 12 hours
-#define STEEM_UPVOTE_LOCKOUT_HF17             (fc::hours(12))
+#define STEEM_UPVOTE_LOCKOUT_HF17             (fc::minutes(1*5))
 
 #define STEEM_MIN_ACCOUNT_CREATION_FEE           1
 #define STEEM_MAX_ACCOUNT_CREATION_FEE           int64_t(1000000000)
@@ -66,9 +66,9 @@
 #define STEEM_OWNER_AUTH_RECOVERY_PERIOD                  fc::days(30)
 #define STEEM_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD  fc::days(1)
 #define STEEM_OWNER_UPDATE_LIMIT                          fc::minutes(60)
-#define STEEM_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM 3186477
+#define STEEM_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM 1
 
-#define STEEM_INIT_SUPPLY                     int64_t(0)
+#define STEEM_INIT_SUPPLY                     int64_t(10000000000)
 
 #endif
 
@@ -77,13 +77,18 @@
 #define SBD_SYMBOL    (steem::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_SBD ) )
 
 #define STEEM_BLOCKCHAIN_HARDFORK_VERSION     ( hardfork_version( STEEM_BLOCKCHAIN_VERSION ) )
+// PRINTABLE BLOCK
+#define STEEMIT_BLOCK_STOP_PRINT_SBD_1ST                         1
 
 #define STEEM_BLOCK_INTERVAL                  3
 #define STEEM_BLOCKS_PER_YEAR                 (365*24*60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_BLOCKS_PER_DAY                  (24*60*60/STEEM_BLOCK_INTERVAL)
-#define STEEM_START_VESTING_BLOCK             (STEEM_BLOCKS_PER_DAY * 7)
-#define STEEM_START_MINER_VOTING_BLOCK        (STEEM_BLOCKS_PER_DAY * 30)
-
+#define STEEM_START_VESTING_BLOCK             (1)
+#define STEEM_START_MINER_VOTING_BLOCK        (1)
+#define STEEMIT_FUND_1							"fund.team"
+#define STEEMIT_FUND_2							"fund.witnesses"
+#define STEEMIT_FUND_3							"fund.common"
+#define STEEMIT_AUCTION                         "auction"
 #define STEEM_INIT_MINER_NAME                 "initminer"
 #define STEEM_NUM_INIT_MINERS                 1
 #define STEEM_INIT_TIME                       (fc::time_point_sec());
@@ -103,12 +108,12 @@
 #define STEEM_MAX_MEMO_SIZE                   2048
 #define STEEM_MAX_PROXY_RECURSION_DEPTH       4
 #define STEEM_VESTING_WITHDRAW_INTERVALS_PRE_HF_16 104
-#define STEEM_VESTING_WITHDRAW_INTERVALS      13
-#define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*7) /// 1 week per interval
+#define STEEM_VESTING_WITHDRAW_INTERVALS      1
+#define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*3) /// 3days
 #define STEEM_MAX_WITHDRAW_ROUTES             10
 #define STEEM_SAVINGS_WITHDRAW_TIME        	(fc::days(3))
 #define STEEM_SAVINGS_WITHDRAW_REQUEST_LIMIT  100
-#define STEEM_VOTING_MANA_REGENERATION_SECONDS (5*60*60*24) // 5 day
+#define STEEM_VOTING_MANA_REGENERATION_SECONDS (60*60*24) // 24h
 #define STEEM_MAX_VOTE_CHANGES                5
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS_HF6 (60*30) /// 30 minutes
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS_HF20 (60*15) /// 15 minutes
@@ -119,28 +124,29 @@
 #define STEEM_MIN_REPLY_INTERVAL              (fc::seconds(20)) // 20 seconds
 #define STEEM_MIN_REPLY_INTERVAL_HF20         (fc::seconds(3)) // 3 seconds
 #define STEEM_POST_AVERAGE_WINDOW             (60*60*24u) // 1 day
-#define STEEM_POST_WEIGHT_CONSTANT            (uint64_t(4*STEEM_100_PERCENT) * (4*STEEM_100_PERCENT))// (4*STEEM_100_PERCENT) -> 2 posts per 1 days, average 1 every 12 hours
+#define STEEM_POST_WEIGHT_CONSTANT            (uint64_t(2*STEEM_100_PERCENT) * (2*STEEM_100_PERCENT))// (2*STEEM_100_PERCENT) -> 4 posts per 1 days, average 1 every 12 hours
 
-#define STEEM_MAX_ACCOUNT_WITNESS_VOTES       30
+#define STEEM_MAX_ACCOUNT_WITNESS_VOTES       7
 
 #define STEEM_100_PERCENT                     10000
 #define STEEM_1_PERCENT                       (STEEM_100_PERCENT/100)
-#define STEEM_DEFAULT_SBD_INTEREST_RATE       (10*STEEM_1_PERCENT) ///< 10% APR
+#define STEEM_DEFAULT_SBD_INTEREST_RATE       (0) ///< 10% APR
 
-#define STEEM_INFLATION_RATE_START_PERCENT    (978) // Fixes block 7,000,000 to 9.5%
+#define STEEM_INFLATION_RATE_START_PERCENT    (950) // Fixes block 7,000,000 to 9.5%
 #define STEEM_INFLATION_RATE_STOP_PERCENT     (95) // 0.95%
 #define STEEM_INFLATION_NARROWING_PERIOD      (250000) // Narrow 0.01% every 250k blocks
-#define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) //75% of inflation, 7.125% inflation
-#define STEEM_VESTING_FUND_PERCENT            (15*STEEM_1_PERCENT) //15% of inflation, 1.425% inflation
+#define STEEM_CONTENT_REWARD_PERCENT          (60*STEEM_1_PERCENT) //75% of inflation, 7.125% inflation
+#define STEEM_VESTING_FUND_PERCENT            (30*STEEM_1_PERCENT) //15% of inflation, 1.425% inflation
 
 #define STEEM_MINER_PAY_PERCENT               (STEEM_1_PERCENT) // 1%
 #define STEEM_MAX_RATION_DECAY_RATE           (1000000)
 
-#define STEEM_BANDWIDTH_AVERAGE_WINDOW_SECONDS (60*60*24*7) ///< 1 week
+#define STEEM_BANDWIDTH_AVERAGE_WINDOW_SECONDS (60*60*24*1) ///< 1 day
 #define STEEM_BANDWIDTH_PRECISION             (uint64_t(1000000)) ///< 1 million
 #define STEEM_MAX_COMMENT_DEPTH_PRE_HF17      6
 #define STEEM_MAX_COMMENT_DEPTH               0xffff // 64k
 #define STEEM_SOFT_MAX_COMMENT_DEPTH          0xff // 255
+#define STEEMIT_VEST_FACTOR						uint64_t(1000000)
 
 #define STEEM_MAX_RESERVE_RATIO               (20000)
 
@@ -152,7 +158,7 @@
 #define STEEM_EQUIHASH_N                      140
 #define STEEM_EQUIHASH_K                      6
 
-#define STEEM_LIQUIDITY_TIMEOUT_SEC           (fc::seconds(60*60*24*7)) // After one week volume is set to 0
+#define STEEM_LIQUIDITY_TIMEOUT_SEC           (fc::seconds(0)) // After one week volume is set to 0
 #define STEEM_MIN_LIQUIDITY_REWARD_PERIOD_SEC (fc::seconds(60)) // 1 minute required on books to receive volume
 #define STEEM_LIQUIDITY_REWARD_PERIOD_SEC     (60*60)
 #define STEEM_LIQUIDITY_REWARD_BLOCKS         (STEEM_LIQUIDITY_REWARD_PERIOD_SEC/STEEM_BLOCK_INTERVAL)
@@ -209,7 +215,9 @@
 #define STEEM_PRODUCER_APR_PERCENT             750
 #define STEEM_POW_APR_PERCENT                  750
 
-#define STEEM_MIN_PAYOUT_SBD                  (asset(20,SBD_SYMBOL))
+#define STEEM_MIN_PAYOUT_SBD                  (asset(1,SBD_SYMBOL))
+#define STEEMIT_BLOCK_CHANGE_MIN_PAYOUT			345000
+#define STEEMIT_MIN_PAYOUT_SBD_VOX				(asset(1,SBD_SYMBOL))
 
 #define STEEM_SBD_STOP_PERCENT_HF14           (5*STEEM_1_PERCENT ) // Stop printing SBD at 5% Market Cap
 #define STEEM_SBD_STOP_PERCENT_HF20           (10*STEEM_1_PERCENT ) // Stop printing SBD at 10% Market Cap
@@ -231,7 +239,7 @@
 #define STEEM_MIN_TRANSACTION_SIZE_LIMIT      1024
 #define STEEM_SECONDS_PER_YEAR                (uint64_t(60*60*24*365ll))
 
-#define STEEM_SBD_INTEREST_COMPOUND_INTERVAL_SEC  (60*60*24*30)
+#define STEEM_SBD_INTEREST_COMPOUND_INTERVAL_SEC  (60*60*24)
 #define STEEM_MAX_TRANSACTION_SIZE            (1024*64)
 #define STEEM_MIN_BLOCK_SIZE_LIMIT            (STEEM_MAX_TRANSACTION_SIZE)
 #define STEEM_MAX_BLOCK_SIZE                  (STEEM_MAX_TRANSACTION_SIZE*STEEM_BLOCK_INTERVAL*2000)

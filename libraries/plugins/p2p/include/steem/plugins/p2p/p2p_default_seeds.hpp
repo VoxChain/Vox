@@ -7,7 +7,7 @@ namespace steem{ namespace plugins { namespace p2p {
 #ifdef IS_TEST_NET
 const std::vector< std::string > default_seeds;
 #else
-const std::vector< std::string > default_seeds = {
+const std::vector< std::string > default_seeds;/* = {
    "seed-east.steemit.com:2001",          // steemit
    "seed-central.steemit.com:2001",       // steemit
    "seed-west.steemit.com:2001",          // steemit
@@ -45,7 +45,7 @@ const std::vector< std::string > default_seeds = {
    "seed.thecryptodrive.com:2001",        // thecryptodrive
    "seed.brandonfrye.us:2001",            // brandonfrye
    "seed.firepower.ltd:2001"              // firepower
-};
+};*/
 #endif
 
 } } } // steem::plugins::p2p
