@@ -32,7 +32,7 @@ uint32_t string_to_asset_num( const char* p, uint8_t decimals )
          {
             if( ((*p) >= 'A') && ((*p) <= 'Z') )
             {
-               FC_ASSERT( shift < 64, "Cannot parse asset symbol" );
+               FC_ASSERT( shift < 64, "Cannot parse asset symbol: Extract name" );
                name_u64 |= uint64_t(*p) << shift;
                shift += 8;
                ++p;
@@ -55,12 +55,12 @@ uint32_t string_to_asset_num( const char* p, uint8_t decimals )
                asset_num = STEEM_ASSET_NUM_VESTS;
                break;
             default:
-               FC_ASSERT( false, "Cannot parse asset symbol" );
+               FC_ASSERT( false, "Cannot parse asset symbol: Check symbol" );
          }
          break;
       }
       default:
-         FC_ASSERT( false, "Cannot parse asset symbol" );
+         FC_ASSERT( false, "Cannot parse asset symbol: Not char" );
    }
 
    // \s*\0
@@ -74,7 +74,7 @@ uint32_t string_to_asset_num( const char* p, uint8_t decimals )
          case '\0':
             break;
          default:
-            FC_ASSERT( false, "Cannot parse asset symbol" );
+            FC_ASSERT( false, "Cannot parse asset symbol: Unexpected char" );
       }
       break;
    }
